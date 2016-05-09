@@ -40,7 +40,7 @@ void Experiment::bruteForceMedian() {
 void Experiment::run() {
     clock_t begin = clock();
     clock_t end = clock();
-    time = (double)(end - begin) / CLOCKS_PER_SEC;
+    double time = (double)(end - begin) / CLOCKS_PER_SEC;
 }
 
 /*
