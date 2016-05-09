@@ -10,24 +10,30 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <cmath>
+#include <random>
+
+
 
 class Experiment {
 public:
     Experiment(int size);
     virtual ~Experiment();
-    void bruteForceMedian();
+    int bruteForceMedian();
     void median();
     void outputExpData();
     void run();
     void writeResults(std::string fileName);
     static void writeHeader(std::string fileName);
+    unsigned int basicOpsB = 0;
+
+
 
 private:
+    std::vector<int> inputVector;
     int size;
-    std::vector<int> inputData;
     unsigned int basicOpsM = 0;
     double timeM = 0;
-    unsigned int basicOpsB = 0;
     double timeB = 0;
 };
 

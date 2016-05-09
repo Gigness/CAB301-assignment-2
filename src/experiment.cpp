@@ -4,12 +4,14 @@
 
 #include "experiment.h"
 
+
 Experiment::Experiment(int size) : size(size)
 {
     for(int i = 0; i < size; i++) {
-        inputData.push_back(i);
+        inputVector.push_back(i);
     }
-    random_shuffle(inputData.begin(), inputData.end());
+    // shuffle vector using clocks() as seed
+//    std::shuffle(inputVector.begin(), inputVector.end(), std::default_random_engine(clock()));
     std::cout << "vector of size: " << size << " created and randomized" << std::endl;
 }
 
@@ -29,8 +31,33 @@ void Experiment::median() {
 /*
  * TODO bruteForceMedian
  */
-void Experiment::bruteForceMedian() {
+int Experiment::bruteForceMedian() {
 
+    int n = inputVector.size();
+    int k = (int)std::ceil(n / 2.0);
+    int counter = 0;
+
+    for (int i = 0; i < n; i++) {
+        int numSmaller = 0;
+        int numEqual = 0;
+
+        for (int j = 0; j < n; j++) {
+            counter++;
+            if (inputVector[j] < inputVector[i]) {
+                numSmaller++;
+            }
+
+            else if (inputVector[j] == inputVector[i]) {
+                numEqual++;
+            }
+
+        }
+        if ( (numSmaller < k) && (k <= (numEqual + numSmaller)) ) {
+            this->basicOpsB = counter;
+            return inputVector[i];
+        }
+    }
+    return -1; // Something went wrong
 }
 
 /*
@@ -38,9 +65,19 @@ void Experiment::bruteForceMedian() {
  * Saves time and basic ops in instance vars
  */
 void Experiment::run() {
-    clock_t begin = clock();
-    clock_t end = clock();
-    double time = (double)(end - begin) / CLOCKS_PER_SEC;
+    // Run the brute force median
+    clock_t begin1 = clock();
+    // bruteForceMedian();
+    clock_t end1 = clock();
+    this->timeB  = (double)(end1 - begin1) / CLOCKS_PER_SEC;
+    // write results to csv
+
+    // Run the median test
+    clock_t begin2 = clock();
+    // median();
+    clock_t end2 = clock();
+    this->timeM  = (double)(end2 - begin2) / CLOCKS_PER_SEC;
+    // write results to csv
 }
 
 /*
@@ -85,4 +122,3 @@ void Experiment::writeResults(std::string fileName) {
     dataFile << size << "," << basicOpsM << "," << timeM << "," << basicOpsM << "," << timeB << std::endl;
     dataFile.close();
 }
-
