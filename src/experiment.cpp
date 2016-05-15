@@ -24,6 +24,8 @@ Experiment::~Experiment()
 int Experiment::median() {
     
     int n = (int)inputVector.size();
+    this->basicOpsM = 0;
+    
     if (n == 1){
         return inputVector[0];
     }
@@ -54,6 +56,7 @@ int Experiment::partition(int l, int h){
     int temp;
     for(int j = l + 1; j < h + 1; j++){
         if(inputVector[j] < pivotval){
+            this->basicOpsM++;
             pivotloc++;
             temp = inputVector[pivotloc];
             inputVector[pivotloc] = inputVector[j];
@@ -157,6 +160,6 @@ void Experiment::writeResults(std::string fileName) {
         exit(1);
     }
 
-    dataFile << size << "," << basicOpsM << "," << timeM << "," << basicOpsM << "," << timeB << std::endl;
+    dataFile << size << "," << basicOpsM << "," << timeM << "," << basicOpsB << "," << timeB << std::endl;
     dataFile.close();
 }

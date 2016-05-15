@@ -28,13 +28,13 @@ public:
     void writeResults(std::string fileName);
     static void writeHeader(std::string fileName);
     unsigned int basicOpsB = 0;
+    unsigned int basicOpsM = 0;
 
 
 
 private:
     std::vector<int> inputVector;
     int size;
-    unsigned int basicOpsM = 0;
     double timeM = 0;
     double timeB = 0;
 };
