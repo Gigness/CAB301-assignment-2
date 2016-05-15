@@ -21,11 +21,49 @@ Experiment::~Experiment()
     std::cout << "Experiment deleted" << std::endl;
 }
 
-/*
- * TODO Median
- */
-void Experiment::median() {
+int Experiment::median() {
     
+    int n = (int)inputVector.size();
+    if (n == 1){
+        return inputVector[0];
+    }
+    else {
+        return select(0, floor(n/2), n-1);
+    }
+}
+
+int Experiment::select(int l, int m, int h){
+    
+    int pos = partition(l, h);
+    if (pos == m){
+        return inputVector[pos];
+    }
+    if (pos > m){
+        return select(l, m, pos - 1);
+    }
+    if (pos < m){
+        return select(pos + 1, m, h);
+    }
+    return 0;
+}
+
+int Experiment::partition(int l, int h){
+    
+    int pivotval = inputVector[l];
+    int pivotloc = l;
+    int temp;
+    for(int j = l + 1; j < h + 1; j++){
+        if(inputVector[j] < pivotval){
+            pivotloc++;
+            temp = inputVector[pivotloc];
+            inputVector[pivotloc] = inputVector[j];
+            inputVector[j] = temp;
+        }
+    }
+    temp = inputVector[pivotloc];
+    inputVector[pivotloc] = inputVector[l];
+    inputVector[l] = temp;
+    return pivotloc;
 }
 
 /*
@@ -33,7 +71,7 @@ void Experiment::median() {
  */
 int Experiment::bruteForceMedian() {
 
-    int n = inputVector.size();
+    int n = (int)inputVector.size();
     int k = (int)std::ceil(n / 2.0);
     int counter = 0;
 

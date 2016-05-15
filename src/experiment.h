@@ -20,7 +20,9 @@ public:
     Experiment(int size);
     virtual ~Experiment();
     int bruteForceMedian();
-    void median();
+    int median();
+    int select(int, int, int);
+    int partition(int, int);
     void outputExpData();
     void run();
     void writeResults(std::string fileName);
