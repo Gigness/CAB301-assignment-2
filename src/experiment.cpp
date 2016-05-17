@@ -8,16 +8,16 @@
  * Experiment
  * engine is an external source for number generatation
  */
-Experiment::Experiment(int size) : size(size)  {
+Experiment::Experiment(int size) : size(size) {
 
     for(int i = 0; i < size; i++) {
         inputVector.push_back(i);
     }
 
     std::random_shuffle(inputVector.begin(), inputVector.end());
-//    for(int i = 0; i < size; i++) {
-//        std::cout << inputVector[i] << " ";
-//    }
+    for(int i = 0; i < size; i++) {
+        std::cout << inputVector[i] << " ";
+    }
     std::cout << "vector of size: " << size << " created and randomized" << std::endl;
 
 }
@@ -196,3 +196,54 @@ void Experiment::randomVectorTest() {
         test.writeVector(testFile);
     }
 }
+
+void Experiment::medianTest() {
+    int size1 = 100;
+    int size2 = 101;
+    int actual_median1 = size1 / 2 - 1;
+    int actual_median2 = size2 / 2 - 1;
+    int median1;
+    int median2;
+
+    std::cout << actual_median1 << std::endl;
+    std::cout << actual_median2 << std::endl;
+
+
+    Experiment test1(size1);
+    Experiment test2(size2);
+    // case 1: random vector
+    median1 = test1.bruteForceMedian();
+    median2 = test2.bruteForceMedian();
+
+    if (median1 != actual_median1) {
+        std::cout << "Bad result" << std::endl;
+    }
+
+
+
+    // case 2: sorted vector
+
+    // case 3: reverse sorted vector
+
+}
+
+void Experiment::setSortedVector() {
+    for(int i = 0; i < inputVector.size(); i++) {
+        inputVector[i] = i;
+    }
+    std::cout << "Set inputVector to sorted: " << std::endl;
+    for(int i = 0; i < this->inputVector.size(); i++) {
+        std::cout << inputVector[i] << " ";
+    }
+}
+
+void Experiment::setReverseVector() {
+    for (int i = inputVector.size() - 1; i >= 0; i--) {
+        inputVector[i] = i;
+    }
+    std::cout << "Set inputVector to reverse sorted: " << std::endl;
+    for(int i = 0; i < this->inputVector.size(); i++) {
+        std::cout << inputVector[i] << " ";
+    }
+}
+

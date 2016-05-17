@@ -27,15 +27,18 @@ public:
     void run();
     void writeResults(std::string fileName);
     static void writeHeader(std::string fileName);
-    unsigned int basicOpsB = 0;
-    unsigned int basicOpsM = 0;
 
     // Functional Testing
     static void randomVectorTest();
     void writeVector(std::ofstream& file);
-    void medianTest();
-    void bruteForceMedianTest();
+    static void medianTest();
+    static void bruteForceMedianTest();
+    void setSortedVector();
+    void setReverseVector();
 
+    // instance vars
+    unsigned int basicOpsB = 0;
+    unsigned int basicOpsM = 0;
 
 
 private:
