@@ -30,6 +30,12 @@ public:
     unsigned int basicOpsB = 0;
     unsigned int basicOpsM = 0;
 
+    // Functional Testing
+    static void randomVectorTest();
+    void writeVector(std::ofstream& file);
+    void medianTest();
+    void bruteForceMedianTest();
+
 
 
 private:

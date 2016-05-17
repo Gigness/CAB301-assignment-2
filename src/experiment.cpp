@@ -4,28 +4,34 @@
 
 #include "experiment.h"
 
+/**
+ * Experiment
+ * engine is an external source for number generatation
+ */
+Experiment::Experiment(int size) : size(size)  {
 
-Experiment::Experiment(int size) : size(size)
-{
     for(int i = 0; i < size; i++) {
         inputVector.push_back(i);
     }
-    // shuffle vector using clocks() as seed
-//    std::shuffle(inputVector.begin(), inputVector.end(), std::default_random_engine(clock()));
+
+    std::random_shuffle(inputVector.begin(), inputVector.end());
+//    for(int i = 0; i < size; i++) {
+//        std::cout << inputVector[i] << " ";
+//    }
     std::cout << "vector of size: " << size << " created and randomized" << std::endl;
+
 }
 
-Experiment::~Experiment()
-{
+Experiment::~Experiment() {
     // just to see garbage collection in action..
     std::cout << "Experiment deleted" << std::endl;
 }
 
 int Experiment::median() {
-    
+
     int n = (int)inputVector.size();
     this->basicOpsM = 0;
-    
+
     if (n == 1){
         return inputVector[0];
     }
@@ -35,7 +41,7 @@ int Experiment::median() {
 }
 
 int Experiment::select(int l, int m, int h){
-    
+
     int pos = partition(l, h);
     if (pos == m){
         return inputVector[pos];
@@ -50,7 +56,7 @@ int Experiment::select(int l, int m, int h){
 }
 
 int Experiment::partition(int l, int h){
-    
+
     int pivotval = inputVector[l];
     int pivotloc = l;
     int temp;
@@ -108,14 +114,14 @@ int Experiment::bruteForceMedian() {
 void Experiment::run() {
     // Run the brute force median
     clock_t begin1 = clock();
-    // bruteForceMedian();
+    bruteForceMedian();
     clock_t end1 = clock();
     this->timeB  = (double)(end1 - begin1) / CLOCKS_PER_SEC;
     // write results to csv
 
     // Run the median test
     clock_t begin2 = clock();
-    // median();
+    median();
     clock_t end2 = clock();
     this->timeM  = (double)(end2 - begin2) / CLOCKS_PER_SEC;
     // write results to csv
@@ -162,4 +168,31 @@ void Experiment::writeResults(std::string fileName) {
 
     dataFile << size << "," << basicOpsM << "," << timeM << "," << basicOpsB << "," << timeB << std::endl;
     dataFile.close();
+}
+
+void Experiment::writeVector(std::ofstream& file) {
+    for (int i = 0; i < this->inputVector.size(); i++) {
+        file << this->inputVector[i] << " ";
+    }
+    file << std::endl;
+}
+
+void Experiment::randomVectorTest() {
+    std::cout << "Randomness Test" << std::endl;
+
+    std::ofstream testFile;
+    testFile.open("randomness_test.txt");
+    if(testFile.fail()) {
+        std::cout << "FILE couldn't be opened" << std::endl;
+        exit(1);
+    }
+
+    int size = 20;
+    int trials = 20;
+
+    for (int i = 0; i < trials; i++) {
+        Experiment test(size);
+        std::cout << testFile.is_open() << std::endl;
+        test.writeVector(testFile);
+    }
 }
