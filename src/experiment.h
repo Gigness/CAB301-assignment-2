@@ -14,7 +14,6 @@
 #include <random>
 
 
-
 class Experiment {
 public:
     Experiment(int size);

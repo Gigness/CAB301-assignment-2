@@ -4,10 +4,7 @@
 
 #include "experiment.h"
 
-/**
- * Experiment
- * engine is an external source for number generatation
- */
+
 Experiment::Experiment(int size) : size(size) {
 
     for(int i = 0; i < size; i++) {
@@ -40,7 +37,7 @@ int Experiment::median() {
     }
 }
 
-int Experiment::select(int l, int m, int h){
+int Experiment::select(int l, int m, int h) {
 
     int pos = partition(l, h);
     if (pos == m){
@@ -55,14 +52,15 @@ int Experiment::select(int l, int m, int h){
     return 0;
 }
 
-int Experiment::partition(int l, int h){
+int Experiment::partition(int l, int h) {
 
     int pivotval = inputVector[l];
     int pivotloc = l;
     int temp;
-    for(int j = l + 1; j < h + 1; j++){
+
+    for(int j = l + 1; j < h + 1; j++) {
         if(inputVector[j] < pivotval){
-            this->basicOpsM++;
+            basicOpsM++;
             pivotloc++;
             temp = inputVector[pivotloc];
             inputVector[pivotloc] = inputVector[j];
@@ -82,14 +80,13 @@ int Experiment::bruteForceMedian() {
 
     int n = (int)inputVector.size();
     int k = (int)std::ceil(n / 2.0);
-    int counter = 0;
 
     for (int i = 0; i < n; i++) {
         int numSmaller = 0;
         int numEqual = 0;
 
         for (int j = 0; j < n; j++) {
-            counter++;
+            basicOpsB++;
             if (inputVector[j] < inputVector[i]) {
                 numSmaller++;
             }
@@ -100,7 +97,6 @@ int Experiment::bruteForceMedian() {
 
         }
         if ( (numSmaller < k) && (k <= (numEqual + numSmaller)) ) {
-            this->basicOpsB = counter;
             return inputVector[i];
         }
     }
@@ -116,15 +112,13 @@ void Experiment::run() {
     clock_t begin1 = clock();
     bruteForceMedian();
     clock_t end1 = clock();
-    this->timeB  = (double)(end1 - begin1) / CLOCKS_PER_SEC;
-    // write results to csv
+    timeB  = (double)(end1 - begin1) / CLOCKS_PER_SEC;
 
     // Run the median test
     clock_t begin2 = clock();
     median();
     clock_t end2 = clock();
-    this->timeM  = (double)(end2 - begin2) / CLOCKS_PER_SEC;
-    // write results to csv
+    timeM  = (double)(end2 - begin2) / CLOCKS_PER_SEC;
 }
 
 /*
