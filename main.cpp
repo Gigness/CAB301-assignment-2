@@ -16,8 +16,5 @@ int main() {
 
 //    Experiment::randomVectorTest();
 
-    Experiment a(10);
-    a.setSortedVector();
-    a.setReverseVector();
-    return 0;
+    Experiment::medianTest();
 }

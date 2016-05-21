@@ -15,9 +15,9 @@ Experiment::Experiment(int size) : size(size) {
     }
 
     std::random_shuffle(inputVector.begin(), inputVector.end());
-    for(int i = 0; i < size; i++) {
-        std::cout << inputVector[i] << " ";
-    }
+//    for(int i = 0; i < size; i++) {
+//        std::cout << inputVector[i] << " ";
+//    }
     std::cout << "vector of size: " << size << " created and randomized" << std::endl;
 
 }
@@ -198,33 +198,59 @@ void Experiment::randomVectorTest() {
 }
 
 void Experiment::medianTest() {
+    std::ofstream testFile;
+    testFile.open("brute_force_median_test.txt");
+    if(testFile.fail()) {
+        std::cout << "FILE couldn't be opened" << std::endl;
+        exit(1);
+    }
     int size1 = 100;
     int size2 = 101;
     int actual_median1 = size1 / 2 - 1;
-    int actual_median2 = size2 / 2 - 1;
+    int actual_median2 = (int)std::ceil(size2 / 2.0) - 1;
     int median1;
     int median2;
+    int median3;
+    int median4;
+    int median5;
+    int median6;
 
-    std::cout << actual_median1 << std::endl;
-    std::cout << actual_median2 << std::endl;
-
-
+    // case 1: random vector (odd and even size)
     Experiment test1(size1);
-    Experiment test2(size2);
-    // case 1: random vector
+    test1.writeVector(testFile);
     median1 = test1.bruteForceMedian();
+    testFile << median1 << std::endl;
+
+    Experiment test2(size2);
+    test2.writeVector(testFile);
     median2 = test2.bruteForceMedian();
+    testFile << median2 << std::endl;
 
-    if (median1 != actual_median1) {
-        std::cout << "Bad result" << std::endl;
-    }
+    // case2: sorted vector
+    Experiment test3(size1);
+    test3.setSortedVector();
+    test3.writeVector(testFile);
+    median3 = test3.bruteForceMedian();
+    testFile << median3 << std::endl;
 
+    Experiment test4(size2);
+    test4.setSortedVector();
+    test4.writeVector(testFile);
+    median4 = test4.bruteForceMedian();
+    testFile << median4 << std::endl;
 
+    // case3: reverse sorted vector
+    Experiment test5(size1);
+    test5.setReverseVector();
+    test5.writeVector(testFile);
+    median5 = test5.bruteForceMedian();
+    testFile << median5 << std::endl;
 
-    // case 2: sorted vector
-
-    // case 3: reverse sorted vector
-
+    Experiment test6(size2);
+    test6.setReverseVector();
+    test6.writeVector(testFile);
+    median6 = test6.bruteForceMedian();
+    testFile << median6 << std::endl;
 }
 
 void Experiment::setSortedVector() {
@@ -232,18 +258,20 @@ void Experiment::setSortedVector() {
         inputVector[i] = i;
     }
     std::cout << "Set inputVector to sorted: " << std::endl;
-    for(int i = 0; i < this->inputVector.size(); i++) {
-        std::cout << inputVector[i] << " ";
-    }
+//    for(int i = 0; i < this->inputVector.size(); i++) {
+//        std::cout << inputVector[i] << " ";
+//    }
+    std::cout << std::endl;
 }
 
 void Experiment::setReverseVector() {
     for (int i = inputVector.size() - 1; i >= 0; i--) {
-        inputVector[i] = i;
+        inputVector[inputVector.size() - 1 - i] = i;
     }
     std::cout << "Set inputVector to reverse sorted: " << std::endl;
-    for(int i = 0; i < this->inputVector.size(); i++) {
-        std::cout << inputVector[i] << " ";
-    }
+//    for(int i = 0; i < this->inputVector.size(); i++) {
+//        std::cout << inputVector[i] << " ";
+//    }
+    std::cout << std::endl;
 }
 
