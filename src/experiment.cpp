@@ -197,7 +197,7 @@ void Experiment::randomVectorTest() {
     }
 }
 
-void Experiment::medianTest() {
+void Experiment::bruteForceMedianTest() {
     std::ofstream testFile;
     testFile.open("brute_force_median_test.txt");
     if(testFile.fail()) {
@@ -252,6 +252,71 @@ void Experiment::medianTest() {
     median6 = test6.bruteForceMedian();
     testFile << median6 << std::endl;
 }
+
+void Experiment::medianTest() {
+    std::ofstream testFile;
+    testFile.open("median_test.txt");
+    if(testFile.fail()) {
+        std::cout << "FILE couldn't be opened" << std::endl;
+        exit(1);
+    }
+    int size0 = 6;
+    int size1 = 100;
+    int size2 = 101;
+    int actual_median1 = size1 / 2 - 1;
+    int actual_median2 = (int)std::ceil(size2 / 2.0) - 1;
+    int median1;
+    int median2;
+    int median3;
+    int median4;
+    int median5;
+    int median6;
+    int median7;
+
+    // case 1: random vector (odd and even size)
+    Experiment test1(size1);
+    test1.writeVector(testFile);
+    median1 = test1.median();
+    testFile << median1 << std::endl;
+
+    Experiment test2(size2);
+    test2.writeVector(testFile);
+    median2 = test2.median();
+    testFile << median2 << std::endl;
+
+    // case2: sorted vector
+    Experiment test3(size1);
+    test3.setSortedVector();
+    test3.writeVector(testFile);
+    median3 = test3.median();
+    testFile << median3 << std::endl;
+
+    Experiment test4(size2);
+    test4.setSortedVector();
+    test4.writeVector(testFile);
+    median4 = test4.median();
+    testFile << median4 << std::endl;
+
+    // case3: reverse sorted vector
+    Experiment test5(size1);
+    test5.setReverseVector();
+    test5.writeVector(testFile);
+    median5 = test5.median();
+    testFile << median5 << std::endl;
+
+    Experiment test6(size2);
+    test6.setReverseVector();
+    test6.writeVector(testFile);
+    median6 = test6.median();
+    testFile << median6 << std::endl;
+    
+    // case5: small vector
+    Experiment test7(size0);
+    test7.writeVector(testFile);
+    median7 = test7.median();
+    testFile << median7 << std::endl;
+}
+
 
 void Experiment::setSortedVector() {
     for(int i = 0; i < inputVector.size(); i++) {
