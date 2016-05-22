@@ -145,7 +145,7 @@ void Experiment::writeHeader(std::string fileName) {
         std::cout << "FILE couldn't be opened" << std::endl;
         exit(1);
     }
-    dataFile << "n,operations_median,time_median,operations_brute, time_brute" << std::endl;
+    dataFile << "n,operations_median,time_median,operations_brute,time_brute" << std::endl;
     dataFile.close();
 }
 

@@ -5,6 +5,6 @@
 using namespace std;
 
 int main() {
-    ExperimentRunner cab301Assignment2(1000, 10000, 1000, 10, "data_1000_10000_1000_10.csv");
+    ExperimentRunner cab301Assignment2(2500, 35000, 2500, 25, "data_2500_40000_2500_20.csv");
     cab301Assignment2.start();
 }
