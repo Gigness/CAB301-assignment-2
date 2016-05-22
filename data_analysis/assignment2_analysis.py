@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("data_2500_35000_2500_25.csv")
 print df.head()
 
+df.to_csv("test.csv")
+
 # mean data
 inputs = df["n"].unique().tolist()
 mean_ops_brute = []
@@ -173,6 +175,11 @@ def raw_data_plots():
 
     plt.show()
 
-bfm_mean_plots()
 
+raw_data_plots()
 
+bfm_norm_plots()
+
+m_norm_plots()
+
+grouped_plots()
