@@ -12,9 +12,6 @@ Experiment::Experiment(int size) : size(size) {
     }
 
     std::random_shuffle(inputVector.begin(), inputVector.end());
-//    for(int i = 0; i < size; i++) {
-//        std::cout << inputVector[i] << " ";
-//    }
     std::cout << "vector of size: " << size << " created and randomized" << std::endl;
 
 }
@@ -73,9 +70,6 @@ int Experiment::partition(int l, int h) {
     return pivotloc;
 }
 
-/*
- * TODO bruteForceMedian
- */
 int Experiment::bruteForceMedian() {
 
     int n = (int)inputVector.size();
@@ -317,9 +311,6 @@ void Experiment::setSortedVector() {
         inputVector[i] = i;
     }
     std::cout << "Set inputVector to sorted: " << std::endl;
-//    for(int i = 0; i < this->inputVector.size(); i++) {
-//        std::cout << inputVector[i] << " ";
-//    }
     std::cout << std::endl;
 }
 
@@ -328,9 +319,6 @@ void Experiment::setReverseVector() {
         inputVector[inputVector.size() - 1 - i] = i;
     }
     std::cout << "Set inputVector to reverse sorted: " << std::endl;
-//    for(int i = 0; i < this->inputVector.size(); i++) {
-//        std::cout << inputVector[i] << " ";
-//    }
     std::cout << std::endl;
 }
 
